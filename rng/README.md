@@ -12,7 +12,7 @@ So this is not preferable way to randomized value.
 $ npm install
 $ hh compile
 $ hh node
-$ hh run scripts/deploy.js
+$ hh run scripts/deploy.js // And set CONTRACT_ADDRESS to deployed contract.
 $ hh run scripts/provider.js
 $ hh run scripts/trigger.js
 ```
