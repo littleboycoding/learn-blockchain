@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract FundMe {
+import "./Storage.sol";
+
+contract FundMe is Stroage {
 	address payable minter;
 
 	constructor() payable {
