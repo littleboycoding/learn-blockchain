@@ -1,24 +1,41 @@
-//SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 contract Lottery {
-    address payable owner;
+    AggregatorV3Interface internal priceFeed;
     address payable[] participate;
-    bool state;
-    
-    constructor() {
-        console.log("Deploying a Lottery");
-        owner = payable(msg.sender);
+    enum STATE {
+        START,
+        ENDING,
+        END
+    }
+    STATE state = STATE.START;
+
+    constructor(address _feedAddr) {
+        priceFeed = AggregatorV3Interface(_feedAddr);
     }
 
-    function join() public {
-        console.log("Participater", msg.sender);
+    function enter() public payable {
+        require(state == STATE.START, "Lottery doesn't start yet");
         participate.push(payable(msg.sender));
     }
 
-    function end() public view {
-        console.log("Lottery ended, selecting winner");
+    function start() public {
+        require(state == STATE.END, "Lottery already started");
+        state = STATE.START;
+    }
+
+    function end() public {
+        require(state == STATE.START, "Lottery already ended");
+        state = STATE.END;
+    }
+
+    function getLatestPrice() public view returns (int256) {
+        // price does come with 8 decimal
+        (, int256 price, , , ) = priceFeed.latestRoundData();
+        return price;
     }
 }

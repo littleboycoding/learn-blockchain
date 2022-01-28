@@ -1,8 +1,10 @@
+require("dotenv/config");
+
+const { task } = require("hardhat/config");
+
 require("@nomiclabs/hardhat-waffle");
 
-// This is a sample Hardhat task. To learn how to create your own go to
-// https://hardhat.org/guides/create-task.html
-task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
+task("accounts", "Prints the list of accounts", async (_, hre) => {
   const accounts = await hre.ethers.getSigners();
 
   for (const account of accounts) {
@@ -10,12 +12,30 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   }
 });
 
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
+task("env", "Get environment variables", () => {
+  console.table({
+    INFURA_RINKEBY_URL: process.env.INFURA_RINKEBY_URL,
+    INFURA_MAINNET_URL: process.env.INFURA_MAINNET_URL,
+    PRIVATE_KEY: process.env.PRIVATE_KEY,
+    AGGREGATOR_ADDRESS: process.env.AGGREGATOR_ADDRESS,
+  });
+});
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
   solidity: "0.8.4",
+  networks: {
+    hardhat: {
+      forking: {
+        url: process.env.INFURA_MAINNET_URL,
+        enabled: true,
+      },
+    },
+    rinkeby: {
+      url: process.env.INFURA_RINKEBY_URL,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+  },
 };
