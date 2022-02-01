@@ -27,15 +27,19 @@ task("env", "Get environment variables", () => {
 module.exports = {
   solidity: "0.8.4",
   networks: {
-    hardhat: {
-      forking: {
-        url: process.env.INFURA_MAINNET_URL,
-        enabled: true,
-      },
-    },
     rinkeby: {
       url: process.env.INFURA_RINKEBY_URL,
       accounts: [process.env.PRIVATE_KEY],
     },
+  },
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.7",
+      },
+      {
+        version: "0.6.6",
+      },
+    ],
   },
 };
