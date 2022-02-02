@@ -1,15 +1,8 @@
-# Basic Sample Hardhat Project
+# Lottery
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+Decenterialized lottery, anyone can join and have a equally chance of winning
 
-Try running some of the following tasks:
+## This leverage these awesome tool
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+- Chainlink VRF
+- Chainlink Data Feed
