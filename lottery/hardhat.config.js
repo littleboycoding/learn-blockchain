@@ -17,7 +17,6 @@ task("env", "Get environment variables", () => {
     INFURA_RINKEBY_URL: process.env.INFURA_RINKEBY_URL,
     INFURA_MAINNET_URL: process.env.INFURA_MAINNET_URL,
     PRIVATE_KEY: process.env.PRIVATE_KEY,
-    AGGREGATOR_ADDRESS: process.env.AGGREGATOR_ADDRESS,
   });
 });
 

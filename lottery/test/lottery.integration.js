@@ -68,19 +68,18 @@ describe("Lottery", function () {
     await enterTx.wait();
     console.log("Entered lottery");
 
-    const startBalanceOfWinner = await signers[0].getBalance(); // Minus gas fee
     await expect(await ethers.provider.getBalance(lottery.address)).to.eq(
       prizePool.toString()
     );
     // await expect(lottery.endLottery()).to.emit(lottery, "RequestedRandomness");
     const endTx = await lottery.endLottery();
     await endTx.wait();
+    const startBalanceOfWinner = await signers[0].getBalance(); // Minus gas fee
     console.log("Ended lottery, choosing winner");
 
     await sleep(60000 * 3); // Rinkey take roughly 3 min to send & receive VRF
 
     const balance = await signers[0].getBalance();
-    console.log(balance, startBalanceOfWinner, prizePool);
     await expect(await lottery.getRecentWinner()).to.eq(signers[0].address);
     await expect(await ethers.provider.getBalance(lottery.address)).to.eq(0);
     await expect(balance).to.eq(startBalanceOfWinner.add(prizePool.toString()));
