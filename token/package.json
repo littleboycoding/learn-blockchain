@@ -1,5 +1,5 @@
 {
-  "name": "lottery",
+  "name": "token",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,17 +10,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@chainlink/contracts": "^0.3.1",
-    "@chainlink/token": "^1.1.0",
     "@openzeppelin/contracts": "^4.4.2",
-    "dotenv": "^14.3.2",
+    "dotenv": "^16.0.0",
     "hardhat": "^2.8.3"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.4",
     "@nomiclabs/hardhat-waffle": "^2.0.2",
-    "chai": "^4.3.4",
+    "chai": "^4.3.6",
     "ethereum-waffle": "^3.4.0",
-    "ethers": "^5.5.3"
+    "ethers": "^5.5.4"
   }
 }
