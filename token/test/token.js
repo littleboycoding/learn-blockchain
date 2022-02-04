@@ -18,8 +18,8 @@ describe("Token", function () {
   })
 
   it("Should deploy with initial supply", async function () {
-    await expect(await token.balanceOf(token.signer.address)).to.eq(initialSupply);
-  });
+    expect(await token.balanceOf(token.signer.address)).to.eq(initialSupply);
+  })
 
   it("Should be able to transfer", async function () {
     const trasnferValue = numberToString(1 * 10 ** 17);

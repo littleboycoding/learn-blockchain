@@ -1,9 +1,19 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-// Not really NFT, just producing NFT alike to be use with token.
+// Not really NFT (cause I'm not yet learn about ERC721), just producing NFT alike to be use with token.
 
 import "hardhat/console.sol";
+
+interface TokenInterface {
+    function transferFrom(
+        address _from,
+        address _to,
+        uint256 _value
+    ) external returns (bool success);
+}
+
+// BWT can I use AccessControl contract library from OpenZeppelin ?
 
 contract NFT {
     address minter;
@@ -11,6 +21,7 @@ contract NFT {
 
     address[] accessible;
     string content;
+    uint256 price;
 
     modifier Accessible() {
         for (uint256 i = 0; i < accessible.length; i++) {
@@ -22,29 +33,25 @@ contract NFT {
         revert("Not accessible");
     }
 
-    constructor(string memory _content, address _token) {
+    constructor(
+        string memory _content,
+        uint256 _price,
+        address _token
+    ) {
         minter = msg.sender;
         content = _content;
         token = _token;
+        price = _price;
     }
 
-    function _access() public payable {
-        // 1 ETH
-        require(msg.value >= (1 * (10**18)), "Not enough fund");
-        accessible.push(msg.sender);
-    }
-
-    function access() public payable {
-        (bool success, ) = token.call(
-            abi.encodeWithSignature(
-                "transfer(address _to, uint256 _value) public returns (bool success)",
-                "call transfer",
-                msg.sender,
-                1 * (10**18)
-            )
+    function access() public {
+        bool success = TokenInterface(token).transferFrom(
+            msg.sender,
+            minter,
+            1 * (10**18)
         );
 
-        require(success);
+        require(success, "Transfer is not success");
 
         accessible.push(msg.sender);
     }
