@@ -12,7 +12,8 @@ describe("Token", function () {
 
   beforeEach(async () => {
     signers = await ethers.getSigners();
-    const Token = await ethers.getContractFactory("Token");
+
+    const Token = await ethers.getContractFactory("Learn");
     token = await Token.deploy(initialSupply);
     await token.deployed();
   })

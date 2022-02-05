@@ -17,13 +17,17 @@ interface TokenInterface {
 
 contract NFT {
     address minter;
-    address token;
 
     address[] accessible;
     string content;
     uint256 price;
 
     modifier Accessible() {
+        if (minter == msg.sender) {
+            _;
+            return;
+        }
+
         for (uint256 i = 0; i < accessible.length; i++) {
             if (accessible[i] == msg.sender) {
                 _;
@@ -33,27 +37,16 @@ contract NFT {
         revert("Not accessible");
     }
 
-    constructor(
-        string memory _content,
-        uint256 _price,
-        address _token
-    ) {
+    constructor(string memory _content, uint256 _price) {
         minter = msg.sender;
         content = _content;
-        token = _token;
         price = _price;
     }
 
-    function access() public {
-        bool success = TokenInterface(token).transferFrom(
-            msg.sender,
-            minter,
-            1 * (10**18)
-        );
+    function grant(address _grantTo) public {
+        require(msg.sender == minter, "Not allowed");
 
-        require(success, "Transfer is not success");
-
-        accessible.push(msg.sender);
+        accessible.push(_grantTo);
     }
 
     function read() public view Accessible returns (string memory) {
