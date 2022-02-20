@@ -4,10 +4,7 @@ const { ethers, upgrades } = require("hardhat");
 
 async function main() {
   const Box3 = await ethers.getContractFactory("BoxV3");
-  const box3 = await upgrades.upgradeProxy(
-    "0x1c3f1059896eB68D0de158CaC1aDDcdfA42a7214",
-    Box3
-  );
+  const box3 = await upgrades.upgradeProxy("PROXY_ADDRESS", Box3);
 }
 
 main()
