@@ -79,7 +79,16 @@ task("ipfs", "Manipulatee data on IPFS protocol")
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.4",
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.7",
+      },
+      {
+        version: "0.6.6",
+      },
+    ],
+  },
   networks: {
     rinkeby: {
       url: process.env.GATEWAY_URL,
