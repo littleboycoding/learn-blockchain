@@ -1,4 +1,5 @@
 require("dotenv/config");
+require("@nomiclabs/hardhat-etherscan");
 require("@nomiclabs/hardhat-waffle");
 
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
@@ -28,5 +29,8 @@ module.exports = {
       url: process.env.INFURA_ENDPOINT,
       accounts: [process.env.ACCOUNTS],
     },
+  },
+  etherscan: {
+    apiKey: "A4MVUG411UDBCWHF9MX9KXMV48HPCISQDT",
   },
 };
